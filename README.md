@@ -1,7 +1,7 @@
 # BuildDay Student Manual
 
 **What we're building:** An AI-powered Sales outreach generator  
-**Duration:** 9:00am -- 3:30pm (doors open 8:30am)
+**Duration:** 9:00am -- 3:00pm (doors open 8:30am)
 
 ---
 
@@ -589,7 +589,6 @@ Keep these somewhere safe -- you'll need them for Vercel deployment:
 | 12:00pm | Lunch                                                                                      |
 | 12:45pm | Build session 2 -- AI integration, results display, save to database, history page, polish |
 | 2:30pm  | Deploy to Vercel                                                                           |
-| 3:00pm  | Demos and what comes next                                                                  |
-| 3:20pm  | Wrap up                                                                                    |
+| 3:00pm  | FAQs and wrap up                                                                           |
 
 
