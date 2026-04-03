@@ -42,6 +42,17 @@ Tell me the version of each when done.
 
 Wait for the agent to finish. If it reports version numbers for both Node.js and Git, you're ready. If anything fails, grab a facilitator and we'll sort it out before we start at 9:00am.
 
+### Clone this manual
+
+Now that Git is installed, let's use it. In the agent chat:
+
+```
+Clone the repo at https://github.com/callumholt/buildDay.git onto my Desktop
+and open it in Cursor.
+```
+
+This downloads the student manual from GitHub onto your machine. You've just used `git clone` for the first time -- the same command developers use every day to pull down code from the internet. You'll have this manual open in Cursor as a reference for the rest of the day.
+
 ---
 
 ## The Tech Stack
