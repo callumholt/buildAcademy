@@ -1,35 +1,31 @@
-# BuildDay Student Manual
+# buildAcademy Student Manual
 
-**What we're building:** An AI-powered Sales outreach generator  
-**Duration:** 9:00am -- 3:00pm (doors open 8:30am)
+**What we're building:** An AI-powered sales outreach generator
+**Format:** 3 live online evenings (Google Meet) -- Tue 6:00-8:00pm AEST
+**Dates:** Tue 23 Jun, Tue 30 Jun, Tue 7 Jul + free setup clinic Sat 20 Jun
+
+Same app, same skills as a single buildDay -- spread over three weeks so each layer
+has room to land. Week 1 we plan and scaffold, Week 2 we connect the database and the
+AI, Week 3 we debug and ship it live.
 
 ---
 
-## Before You Arrive
+## Before the Cohort -- Setup Clinic (Sat 20 Jun)
 
-Complete these steps before the workshop (about 10 minutes):
+We run a free setup clinic so the three Tuesdays are pure building -- not a minute
+spent on installs. Come to the clinic, or grab a 1:1 if you can't make it. The goal
+is a build-ready laptop.
+
+Complete these before Week 1 (about 10 minutes):
 
 1. **Install Cursor** -- go to cursor.com, download and install it, and sign up for a Pro subscription (or start a free trial)
 2. **Create these accounts** (all free):
   - **GitHub** -- github.com
   - **Vercel** -- vercel.com (sign up with your GitHub account)
   - **Supabase** -- supabase.com, then also go to supabase.com/dashboard/account/tokens, click "Generate new token", name it "Cursor MCP", and save the token somewhere safe
-  - **OpenRouter** -- openrouter.ai (add $5 credit -- this will last you weeks beyond the workshop)
+  - **OpenRouter** -- openrouter.ai (add $5 credit -- this will last you weeks beyond the cohort)
 
-That's it. We'll handle the rest on the day.
-
-Stuck? Reply to the setup email and we'll sort it out before the day.
-
----
-
-## When You Arrive (Doors Open 8:30am)
-
-Grab a coffee, connect to wifi, and open Cursor. Then open a new agent chat (Cmd+L on Mac, Ctrl+L on Windows) and paste this prompt:
-
-WIFI:
-
-username: "StoneAndChalk"  
-password: "stoneandresident"
+3. **Install Node.js and Git via the agent.** This is your first taste of Cursor's agent. Open Cursor, open a new agent chat (Cmd+L on Mac, Ctrl+L on Windows) and paste this prompt:
 
 ```
 Check if Node.js and Git are installed on this machine.
@@ -40,18 +36,28 @@ git-scm.com (Windows).
 Tell me the version of each when done.
 ```
 
-Wait for the agent to finish. If it reports version numbers for both Node.js and Git, you're ready. If anything fails, grab a facilitator and we'll sort it out before we start at 9:00am.
+Wait for the agent to finish. If it reports version numbers for both Node.js and Git, you're ready. You just installed developer tools by asking in plain English -- that is how the rest of this cohort works.
 
-### Clone this manual
+Stuck? Reply to the setup email and we'll sort it out before Week 1.
 
-Now that Git is installed, let's use it. In the agent chat:
+---
+
+## Each Night (Google Meet)
+
+The Meet link opens at **5:30pm** each night -- 30 minutes early -- so you can test
+your audio, video, and screen-share before we start. Cameras on: this is a cohort,
+not a lecture. We start at 6:00pm sharp.
+
+### Clone this manual (Week 1, once)
+
+Now that Git is installed, let's use it. In a new agent chat:
 
 ```
 Clone the repo at https://github.com/callumholt/buildDay.git onto my Desktop
 and open it in Cursor.
 ```
 
-This downloads the student manual from GitHub onto your machine. You've just used `git clone` for the first time -- the same command developers use every day to pull down code from the internet. You'll have this manual open in Cursor as a reference for the rest of the day.
+This downloads the student manual from GitHub onto your machine. You've just used `git clone` for the first time -- the same command developers use every day to pull down code from the internet. You'll have this manual open in Cursor as a reference for all three weeks.
 
 ---
 
@@ -75,7 +81,9 @@ Here's what each tool does, in plain English:
 
 ## Three Habits That Will Save You
 
-Keep these in mind throughout the day:
+Keep these in mind every night. These three are what YouTube won't teach you -- they
+map to the three ways people get stuck with AI tools (the fix spiral, the planning
+gap, the deployment cliff).
 
 1. **The Checkpoint Rule** -- Before we start anything new, we commit and push to GitHub. It's a save point. If the next thing breaks, we go back to here.
 2. **The Reset Rule** -- If Cursor starts spiralling (fixing one thing and breaking another), we stop, revert to the last checkpoint, and try a different prompt. We never chase a fix spiral.
@@ -97,7 +105,7 @@ This project is deliberately simple, but it covers every fundamental skill you n
 - **Version control** -- pushing code to GitHub means your work is backed up in the cloud and you can always go back to a previous version. This is how every professional development team works. It also means if your laptop blows up, you can just get a new laptop and connect to github and continue on from where you left it. Github is like a library or a book, it stores your code, but it doesn't run your code.
 - **Deployment** -- connecting to Vercel takes your app from "running on my laptop" to "live on the internet with a real URL." This is the step most people skip when learning, and it's the step that makes everything real. Vercel runs ontop of AWS and is effectively an 'always on computer' that runs your code just like localhost:3000 does on your local machine.
 
-By the end of the day you'll have touched every layer of a modern web application. The app itself is useful, but the real value is understanding how these pieces fit together -- because every app you build after this uses the same architecture.
+By the end of three weeks you'll have touched every layer of a modern web application. The app itself is useful, but the real value is understanding how these pieces fit together -- because every app you build after this uses the same architecture.
 
 ### How it all fits together
 
@@ -155,7 +163,7 @@ created_at      | timestamp (auto-generated)
 - The next three are what the AI generates (outputs)
 - The last two are automatic (the database handles them)
 
- **do :**
+ **The AI prompt:**
 
 ```
 You are an expert B2B copywriter.
@@ -184,20 +192,29 @@ Format your response as JSON:
 
 ## Build Order
 
-This is the checklist for the day. After every step, we commit and push to GitHub.
+This is the checklist for the whole cohort. After every step, we commit and push to GitHub. The arrows show where each week lands.
 
 ```
+WEEK 1 -- Plan & Scaffold
 1. Create the Next.js project + connect to GitHub       → CHECKPOINT
 2. Build the Generate form (5 fields + button)           → CHECKPOINT
+
+WEEK 2 -- Database & AI
 3. Set up Supabase (MCP + table + secret keys)           → CHECKPOINT
 4. Build the API route (connect form to OpenRouter)      → CHECKPOINT
 5. Build the Results screen (email + LinkedIn display)   → CHECKPOINT
 6. Add "Save to History" (write to Supabase)             → CHECKPOINT
+
+WEEK 3 -- Debug & Ship
 7. Build the History page (read from Supabase)           → CHECKPOINT
 8. Deploy to Vercel                                      → CHECKPOINT (final)
 ```
 
 ---
+
+# WEEK 1 -- Plan & Scaffold
+
+**End state tonight:** a running Next.js project with the Generate form on screen at localhost:3000. A visible win in week one.
 
 ## Step 1: Create the Project + Connect to GitHub
 
@@ -267,7 +284,18 @@ Review and accept the changes. Check the browser -- the form should be there.
 
 **CHECKPOINT:** In the agent chat: `Commit all changes with the message 'add generate form' and push to GitHub`
 
+### Homework (Week 1 → Week 2)
+
+1. Make sure the project still runs after you reopen Cursor.
+2. Make the form yours -- change the title, colours, and add placeholder example text in the fields, using one Cursor prompt at a time and committing after each.
+3. Confirm your Supabase account works and your "Cursor MCP" access token is saved.
+4. Post a screenshot of your form in the community.
+
 ---
+
+# WEEK 2 -- Database & AI
+
+**End state tonight:** Supabase connected, the AI generating real personalised copy, results displayed on screen, and Save-to-History working.
 
 ## Step 3: Set Up Supabase + MCP + Secret Keys
 
@@ -322,6 +350,8 @@ Disable Row Level Security on this table for now.
 After it completes, check your Supabase dashboard (Table Editor) to verify the table is there.
 
 ### Part D: Set up environment variables
+
+Two different connections, two different keys: the MCP token lets Cursor *manage* the database (admin); the Project URL + anon key let the *app* read and write at runtime.
 
 1. In Supabase, go to **Settings** then **API** -- copy the **Project URL** and **anon key**
 2. Go to openrouter.ai, then **Keys** -- copy your API key
@@ -384,7 +414,7 @@ I need to add AI-powered email generation to this app. Do the following:
 3. Open browser DevTools (Cmd+Option+J on Mac, Ctrl+Shift+J on Windows)
 4. Check the console -- you should see a JSON object with `email_subject`, `email_body`, and `linkedin_message`
 
-If it works -- you just built an AI feature.
+If it works -- you just built an AI feature. That API route is the exact pattern behind every AI product: take input, send it to a model, get structured output back.
 
 **CHECKPOINT:** In the agent chat: `Commit all changes with the message 'add AI generation via openrouter' and push to GitHub`
 
@@ -436,15 +466,36 @@ Import the supabase client at the top of the file.
 1. Generate an email
 2. Hit "Save to History"
 3. Go to your Supabase dashboard, then Table Editor, then the outreach table
-4. Your data should be there
+4. Your data should be there -- and it persists. Close the browser, it's still there.
 
 **CHECKPOINT:** In the agent chat: `Commit all changes with the message 'save to supabase' and push to GitHub`
 
+### Homework (Week 2 → Week 3)
+
+1. **Build the History page yourself** with Cursor (Step 7 below has the prompt) -- a `/history` page that reads all rows newest-first and shows prospect, company, and date, expandable to the full email and message.
+2. **Bring a real bug.** Intentionally tinker and break something, or note anything that broke. Week 3 opens with a live debugging workshop on YOUR bugs.
+3. Commit after every change.
+
 ---
+
+# WEEK 3 -- Debug & Ship
+
+**End state tonight:** the app is live on the internet on your own Vercel URL, you can open it on your phone, and you have a repeatable method for fixing your own bugs.
+
+## Debugging Workshop
+
+This is the skill that makes you independent. Before we ship, we work through real bugs -- the ones you brought from homework -- as a group. Learn the method, not just the fix:
+
+1. **Read the error** -- out loud. Most people skip this. The error usually says what's wrong.
+2. **One change at a time** -- never fix five things at once.
+3. **The Reset Rule** -- if a fix breaks something else, revert to the last checkpoint (`Revert all uncommitted changes back to the last commit`) and re-prompt more specifically.
+4. **Give the agent context** -- paste the actual error text and the file into Cursor, don't just say "it's broken".
+
+You'll use the Reset Rule a hundred times after this cohort. It's the difference between being stuck and being unstoppable.
 
 ## Step 7: Build the History Page
 
-In the agent chat:
+You built this for homework -- here's the prompt, so everyone's is working before we deploy. In the agent chat:
 
 ```
 Create a new page at app/history/page.tsx that:
@@ -472,9 +523,7 @@ Use Tailwind CSS. Keep it simple and clean.
 
 **CHECKPOINT:** In the agent chat: `Commit all changes with the message 'add history page' and push to GitHub`
 
----
-
-## Step 8: Polish (Optional)
+## Polish (Optional)
 
 Pick one or two things to improve and ask Cursor to do them:
 
@@ -486,9 +535,7 @@ Pick one or two things to improve and ask Cursor to do them:
 
 **CHECKPOINT:** In the agent chat: `Commit all changes with the message 'polish and styling' and push to GitHub`
 
----
-
-## Step 9: Deploy to Vercel
+## Step 8: Deploy to Vercel
 
 This is where your app goes live on the internet.
 
@@ -501,6 +548,8 @@ This is where your app goes live on the internet.
 4. Click **Deploy**
 5. Wait ~2 minutes for the build to finish
 6. Click the URL Vercel gives you -- that's your app, live on the internet
+
+`.env.local` only ever existed on your laptop. Vercel needs its own copy of the secrets -- that's why you add the environment variables here. This is exactly how every production app works.
 
 ### Test the live app
 
@@ -519,7 +568,7 @@ If something doesn't work:
 
 ## What Comes Next
 
-You've built a fully working app. It's live, it generates real output, and it saves to a real database. But there are things we deliberately left out because they're beyond what we can do in six hours. Here's what you'd add next:
+You've built a fully working app. It's live, it generates real output, and it saves to a real database. But there are things we deliberately left out because they're beyond the foundations. Here's what you'd add next:
 
 1. **Authentication** -- right now, anyone with the URL can use it. Adding login (Supabase Auth) means each person only sees their own data.
 2. **Security** -- we turned off Row Level Security on the database. Before sharing this with others, you'd turn that back on and set rules for who can read and write data.
@@ -527,7 +576,7 @@ You've built a fully working app. It's live, it generates real output, and it sa
 4. **Error handling** -- what happens if OpenRouter is down? If the internet drops? Production apps handle these gracefully.
 5. **Custom domain** -- right now it's on a `.vercel.app` URL. You can connect your own domain in Vercel's settings.
 
-These aren't scary -- they're the next steps. You now understand the architecture well enough to ask Cursor to help you add them.
+These aren't scary -- they're the next steps, and they're exactly what the ongoing community covers, module by module. You now understand the architecture well enough to ask Cursor to help you add them. The architecture is identical for any app -- swap the fields, change the prompt, redesign the table, and you can build for your own idea.
 
 ---
 
@@ -578,17 +627,25 @@ Keep these somewhere safe -- you'll need them for Vercel deployment:
 
 ## Schedule
 
-
-| Time    | What's happening                                                                           |
-| ------- | ------------------------------------------------------------------------------------------ |
-| 8:30am  | Doors open -- coffee, wifi, setup check                                                    |
-| 9:00am  | Welcome, introductions, demo of the finished app                                           |
-| 9:30am  | Plan like a developer -- scope, database, AI prompt                                        |
-| 10:15am | Coffee break                                                                               |
-| 10:30am | Build session 1 -- project setup, GitHub, form, Supabase MCP                               |
-| 12:00pm | Lunch                                                                                      |
-| 12:45pm | Build session 2 -- AI integration, results display, save to database, history page, polish |
-| 2:30pm  | Deploy to Vercel                                                                           |
-| 3:00pm  | FAQs and wrap up                                                                           |
+Each night follows the same shape: a short recap and demo, 90 minutes of building, then homework and questions.
 
 
+| Time          | What's happening                                                          |
+| ------------- | ------------------------------------------------------------------------- |
+| 5:30pm        | Meet link opens -- test audio, video, and screen-share                     |
+| 6:00 - 6:15pm | What we're covering tonight -- recap last week, demo tonight's end state    |
+| 6:15 - 7:45pm | Content and build -- the teaching and the hands-on build                   |
+| 7:45 - 8:00pm | Homework, next week, and Q&A                                              |
+
+
+**The three weeks:**
+
+
+| Week           | Date       | Focus                                                          |
+| -------------- | ---------- | -------------------------------------------------------------- |
+| Setup Clinic   | Sat 20 Jun | Installs and accounts -- get your laptop build-ready            |
+| Week 1         | Tue 23 Jun | Plan & Scaffold -- project setup, GitHub, the Generate form     |
+| Week 2         | Tue 30 Jun | Database & AI -- Supabase, MCP, the AI feature, results, save   |
+| Week 3         | Tue 7 Jul  | Debug & Ship -- debugging workshop, history page, deploy live   |
+</content>
+</invoke>
