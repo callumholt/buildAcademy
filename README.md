@@ -53,7 +53,7 @@ not a lecture. We start at 6:00pm sharp.
 Now that Git is installed, let's use it. In a new agent chat:
 
 ```
-Clone the repo at https://github.com/callumholt/buildDay.git onto my Desktop
+Clone the repo at https://github.com/callumholt/buildAcademy.git onto my Desktop
 and open it in Cursor.
 ```
 
