@@ -2,62 +2,103 @@
 
 **What we're building:** An AI-powered sales outreach generator
 **Format:** 3 live online evenings (Google Meet) -- Tue 6:00-8:00pm AEST
-**Dates:** Tue 23 Jun, Tue 30 Jun, Tue 7 Jul + free setup clinic Sat 20 Jun
+**Dates:** Tue 23 Jun, Tue 30 Jun, Tue 7 Jul
 
-Same app, same skills as a single buildDay -- spread over three weeks so each layer
+Same app, same skills as a single-day build -- spread over three weeks so each layer
 has room to land. Week 1 we plan and scaffold, Week 2 we connect the database and the
 AI, Week 3 we debug and ship it live.
 
 ---
 
-## Before the Cohort -- Setup Clinic (Sat 20 Jun)
+## Before the Cohort -- Setup
 
-We run a free setup clinic so the three Tuesdays are pure building -- not a minute
-spent on installs. Come to the clinic, or grab a 1:1 if you can't make it. The goal
-is a build-ready laptop.
+Follow the setup video and the steps below before Week 1 so the three Tuesdays are
+pure building -- not a minute spent on installs. The goal is a build-ready laptop.
 
-Complete these before Week 1 (about 10 minutes):
+Complete these before Week 1 (about 15 minutes):
 
 1. **Install Cursor** -- go to cursor.com, download and install it, and sign up for a Pro subscription (or start a free trial)
 2. **Create these accounts** (all free):
   - **GitHub** -- github.com
   - **Vercel** -- vercel.com (sign up with your GitHub account)
-  - **Supabase** -- supabase.com, then also go to supabase.com/dashboard/account/tokens, click "Generate new token", name it "Cursor MCP", and save the token somewhere safe
+  - **Supabase** -- supabase.com
   - **OpenRouter** -- openrouter.ai (add $5 credit -- this will last you weeks beyond the cohort)
 
-3. **Install Node.js and Git via the agent.** This is your first taste of Cursor's agent. Open Cursor, open a new agent chat (Cmd+L on Mac, Ctrl+L on Windows) and paste this prompt:
+### Get in the habit: let the Cursor agent do the work
+
+Throughout buildAcademy we lean on one core skill: **using the Cursor agent to do the
+actual work** -- installing tools, running commands, and making the real changes to
+your app. You describe what you want in plain English; the agent executes it. We start
+practising right now by checking your connection to two services you'll use all
+cohort: **GitHub** and **Supabase**.
+
+In plain terms:
+
+- **GitHub** -- a place on the internet that stores and backs up code, and lets you pull existing code down onto your machine. Think Google Docs version history, but for code.
+- **Supabase** -- a database: where an app stores its information so it remembers things. Think a smart spreadsheet your app can read from and write to.
+
+Don't worry about the detail yet -- we'll talk about both properly in Week 1. The
+reason we connect them now is that the exact skills you practise here -- pulling code
+from GitHub and letting Cursor talk to Supabase -- are the same ones you'll use to
+build and ship your app later.
+
+#### 1. Pull this manual from GitHub (your first agent prompt)
+
+Open Cursor, open a new agent chat (Cmd+L on Mac, Ctrl+L on Windows), and paste this:
 
 ```
-Check if Node.js and Git are installed on this machine.
-If Node.js is not installed, install it using Homebrew (install Homebrew first
-if needed on Mac, or download from nodejs.org on Windows).
-If Git is not installed, install it using Homebrew (Mac) or download from
-git-scm.com (Windows).
-Tell me the version of each when done.
+Check whether Node.js and Git are installed on this machine, and install whichever
+is missing (use Homebrew on Mac -- installing Homebrew first if needed; on Windows
+download Node.js from nodejs.org and Git from git-scm.com).
+Then clone the public repo https://github.com/callumholt/buildAcademy.git onto my
+Desktop and open it in Cursor.
+Tell me the installed version of Node.js and Git when you're done.
 ```
 
-Wait for the agent to finish. If it reports version numbers for both Node.js and Git, you're ready. You just installed developer tools by asking in plain English -- that is how the rest of this cohort works.
+If the agent reports a version for Node.js and Git and the project opens in Cursor,
+your GitHub connection works -- you've just pulled real code down from the internet by
+asking in plain English. Keep this manual open in Cursor as your reference for all
+three weeks.
 
-Stuck? Reply to the setup email and we'll sort it out before Week 1.
+#### 2. Connect Supabase to Cursor (MCP)
+
+MCP is what lets the Cursor agent talk directly to Supabase -- so later it can create
+your database tables and read your data for you, without you leaving Cursor. Set it up
+once now:
+
+**First, log in to Supabase in your browser** (open supabase.com and sign in). With
+that already done, the approval step below is a single click instead of a full login
+in a small popup window.
+
+1. In Cursor, open **Settings → Cursor Settings → Tools & MCP**
+2. Click **Add** (or **New MCP server**), choose the **HTTP** type, name it `supabase`, and use the URL: `https://mcp.supabase.com/mcp`
+3. A browser window opens -- log in to Supabase and approve access. (It uses a secure login, so you don't need to copy or paste any tokens.)
+4. Back in Cursor, wait for the green dot next to **supabase**
+
+Then test the connection in an agent chat:
+
+```
+Using the Supabase MCP, list my Supabase projects and any tables in them.
+If I don't have a project yet, just confirm that you can see my Supabase account.
+```
+
+If the agent can see your Supabase account, you're connected -- and you've just given
+Cursor a direct line to your database. (Official step-by-step, in case the screens look
+different: [https://supabase.com/docs/guides/getting-started/mcp](https://supabase.com/docs/guides/getting-started/mcp))
+
+> Seeing a red dot or an error on the Supabase MCP? That's the most common setup snag
+> -- jump to the **Troubleshooting** section at the bottom of this manual.
+
+Stuck on any of this? Reply to the setup email and we'll sort it out before Week 1.
 
 ---
 
 ## Each Night (Google Meet)
 
-The Meet link opens at **5:30pm** each night -- 30 minutes early -- so you can test
-your audio, video, and screen-share before we start. Cameras on: this is a cohort,
-not a lecture. We start at 6:00pm sharp.
-
-### Clone this manual (Week 1, once)
-
-Now that Git is installed, let's use it. In a new agent chat:
-
-```
-Clone the repo at https://github.com/callumholt/buildAcademy.git onto my Desktop
-and open it in Cursor.
-```
-
-This downloads the student manual from GitHub onto your machine. You've just used `git clone` for the first time -- the same command developers use every day to pull down code from the internet. You'll have this manual open in Cursor as a reference for all three weeks.
+We'll send you the Meet link beforehand, so you're all set -- just click it to join.
+The link opens at **5:30pm** each night -- 30 minutes early -- so you can test your
+audio, video, and screen-share before we start. Cameras on: this is a cohort, not a
+lecture. We start at 6:00pm sharp.
 
 ---
 
@@ -123,6 +164,44 @@ flowchart LR
 ```
 
 
+
+### Following the data, step by step
+
+Same journey as above, but this time watch the actual information move. Think of it like
+filling in a form, handing it to an assistant, and getting a finished letter back.
+
+```mermaid
+flowchart TD
+    A["You type in the form<br/><i>Sarah, VP Sales at Acme,<br/>I sell CRM software,<br/>her team wastes hours on admin</i>"]
+    A -- "those 5 details get sent" --> B["The app's API route<br/><i>the messenger in the middle</i>"]
+    B -- "wraps your details in<br/>a request and asks the AI" --> C["OpenRouter (the AI)<br/><i>writes the copy</i>"]
+    C -- "sends back finished writing<br/>as neat, labelled data" --> B
+    B -- "passes the writing<br/>to the screen" --> D["Results screen<br/><i>Subject + email body<br/>+ LinkedIn message,<br/>each with a Copy button</i>"]
+    D -- "you click Save" --> E["Supabase (the database)<br/><i>stores a permanent copy,<br/>like a row in a spreadsheet</i>"]
+    E -- "the History page<br/>asks for all saved rows" --> F["History page<br/><i>every email you've<br/>ever generated, newest first</i>"]
+```
+
+
+
+**What's actually moving at each arrow:**
+
+1. **You → API route:** the 5 things you typed (name, company, role, your offer, their pain point)
+2. **API route → AI:** those details wrapped in instructions ("write a cold email and a LinkedIn message")
+3. **AI → API route:** the finished writing, sent back as labelled data (`email_subject`, `email_body`, `linkedin_message`)
+4. **API route → screen:** the writing, shown to you with Copy buttons
+5. **Screen → database:** when you hit Save, everything (your inputs + the AI's outputs) is stored permanently
+6. **Database → History page:** the History page reads everything back out so you can see all your past work
+
+```mermaid
+flowchart LR
+    L["Your laptop<br/><i>where you build</i>"] -- "git push<br/><i>upload your code</i>" --> G["GitHub<br/><i>the cloud backup</i>"]
+    G -- "auto-deploy<br/><i>builds & publishes</i>" --> V["Vercel<br/><i>your live website,<br/>open to anyone</i>"]
+```
+
+
+
+Your code travels separately: you push it to GitHub (the backup), and Vercel automatically
+turns that into a live website. Every time you push, the live site updates itself.
 
 **The flow:**
 
@@ -195,7 +274,8 @@ Format your response as JSON:
 This is the checklist for the whole cohort. After every step, we commit and push to GitHub. The arrows show where each week lands.
 
 ```
-WEEK 1 -- Plan & Scaffold
+WEEK 1 -- Scope & Scaffold
+0. Scope the app (on paper -- no code yet)
 1. Create the Next.js project + connect to GitHub       → CHECKPOINT
 2. Build the Generate form (5 fields + button)           → CHECKPOINT
 
@@ -212,9 +292,58 @@ WEEK 3 -- Debug & Ship
 
 ---
 
-# WEEK 1 -- Plan & Scaffold
+# WEEK 1 -- Scope & Scaffold
 
-**End state tonight:** a running Next.js project with the Generate form on screen at localhost:3000. A visible win in week one.
+**End state tonight:** a scoped plan for the app, a running Next.js project, and the Generate form on screen at localhost:3000.
+
+## Step 0: Scope the App (before any code)
+
+This is the most important step of the whole cohort -- and the one most people skip.
+Anyone can ask an AI to "build me an app". The people who actually ship are the ones
+who scope first: they decide exactly what they're building before they prompt. AI
+removed the hard part of *writing* the code. It did not remove the hard part of
+*deciding what to build* -- that's now your job, and it's the skill that lets you walk
+away from this cohort and build your own thing.
+
+### The SCOPE framework
+
+Five questions, one word: **SCOPE**. Write them down -- they work for **any** app you
+ever build, not just this one:
+
+- **S -- Solve:** who are you solving the problem for? (the user)
+- **C -- Challenge:** what specific problem does the app solve? (the job)
+- **O -- One thing:** what's the one thing that, if it didn't work, makes the whole app pointless? (the core -- protect this above all)
+- **P -- Path:** where does the information come from, and where does it need to end up? (inputs → outputs → storage)
+- **E -- Exclude:** what will you deliberately leave for later? (the cuts -- this is how you actually ship)
+
+### Our app, scoped
+
+Here's the framework applied to the app we're building together:
+
+- **For:** someone doing cold outreach -- a founder, salesperson, or recruiter
+- **Problem:** writing personalised cold emails and LinkedIn messages is slow
+- **Core:** the generated copy must be good and personalised. If that fails, nothing else matters.
+- **Info:** user types prospect details → AI generates copy → we save it to a database → they read it back in history
+- **Later (out of scope):** login, payments, multiple users. We name these so we stop trying to build everything at once.
+
+> **Scope is not a limitation -- it's the skill. Naming what you're NOT building is how anything ever ships.**
+
+### From scope to structure
+
+**Path** (inputs → outputs → storage) turns straight into the table our app needs.
+This is what "thinking in data" looks like:
+
+```
+Table: outreach
+  prospect_name, company, role, offer, pain_point   ← inputs (what you type)
+  email_subject, email_body, linkedin_message       ← outputs (what the AI writes)
+```
+
+We save the inputs next to the outputs so your history shows *who* you wrote to and
+*why*, not just the text. We'll build this table for real in Week 2.
+
+Keep the SCOPE framework -- it's the move you'll repeat for every app you build after
+this cohort. Tonight we put it to work on the app we're all building together.
 
 ## Step 1: Create the Project + Connect to GitHub
 
@@ -630,22 +759,43 @@ Keep these somewhere safe -- you'll need them for Vercel deployment:
 Each night follows the same shape: a short recap and demo, 90 minutes of building, then homework and questions.
 
 
-| Time          | What's happening                                                          |
-| ------------- | ------------------------------------------------------------------------- |
-| 5:30pm        | Meet link opens -- test audio, video, and screen-share                     |
-| 6:00 - 6:15pm | What we're covering tonight -- recap last week, demo tonight's end state    |
-| 6:15 - 7:45pm | Content and build -- the teaching and the hands-on build                   |
-| 7:45 - 8:00pm | Homework, next week, and Q&A                                              |
+| Time          | What's happening                                                         |
+| ------------- | ------------------------------------------------------------------------ |
+| 5:30pm        | Meet link opens -- test audio, video, and screen-share                   |
+| 6:00 - 6:15pm | What we're covering tonight -- recap last week, demo tonight's end state |
+| 6:15 - 7:45pm | Content and build -- the teaching and the hands-on build                 |
+| 7:45 - 8:00pm | Homework, next week, and Q&A                                             |
 
 
 **The three weeks:**
 
 
-| Week           | Date       | Focus                                                          |
-| -------------- | ---------- | -------------------------------------------------------------- |
-| Setup Clinic   | Sat 20 Jun | Installs and accounts -- get your laptop build-ready            |
-| Week 1         | Tue 23 Jun | Plan & Scaffold -- project setup, GitHub, the Generate form     |
-| Week 2         | Tue 30 Jun | Database & AI -- Supabase, MCP, the AI feature, results, save   |
-| Week 3         | Tue 7 Jul  | Debug & Ship -- debugging workshop, history page, deploy live   |
-</content>
-</invoke>
+| Week          | Date       | Focus                                                                       |
+| ------------- | ---------- | --------------------------------------------------------------------------- |
+| Setup (video) | Before W1  | Installs and accounts -- get your laptop build-ready                        |
+| Week 1        | Tue 23 Jun | Scope & Scaffold -- scope the app, project setup, GitHub, the Generate form |
+| Week 2        | Tue 30 Jun | Database & AI -- Supabase, MCP, the AI feature, results, save               |
+| Week 3        | Tue 7 Jul  | Debug & Ship -- debugging workshop, history page, deploy live               |
+
+
+---
+
+## Troubleshooting
+
+### Supabase MCP won't connect
+
+If the Supabase MCP server shows a red dot in Cursor and won't connect, you may need
+to use a personal access token instead of relying on the default connection.
+
+1. Go to [supabase.com/dashboard/account/tokens](https://supabase.com/dashboard/account/tokens)
+2. Click **Generate new token**, name it "Cursor MCP", and copy the token immediately (you can only see it once)
+3. In Cursor, open Settings, click **MCP**, and edit the `supabase` server's command to include the token:
+
+```
+npx -y @supabase/mcp-server-supabase@latest --access-token <paste-your-token-here>
+```
+
+1. Save and click the refresh button -- wait for the green dot to appear
+
+If it still won't connect, double-check the token was copied correctly and hasn't expired, then generate a fresh one.
+
