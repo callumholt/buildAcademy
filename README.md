@@ -63,19 +63,38 @@ three weeks.
 #### 2. Connect Supabase to Cursor (MCP)
 
 MCP is what lets the Cursor agent talk directly to Supabase -- so later it can create
-your database tables and read your data for you, without you leaving Cursor. Set it up
-once now:
+your database tables and read your data for you, without you leaving Cursor. We'll set
+it up the buildAcademy way: by asking the agent to do it.
 
 **First, log in to Supabase in your browser** (open supabase.com and sign in). With
-that already done, the approval step below is a single click instead of a full login
+that already done, the approval step later is a single click instead of a full login
 in a small popup window.
 
-1. In Cursor, open **Settings → Cursor Settings → Tools & MCP**
-2. Click **Add** (or **New MCP server**), choose the **HTTP** type, name it `supabase`, and use the URL: `https://mcp.supabase.com/mcp`
-3. A browser window opens -- log in to Supabase and approve access. (It uses a secure login, so you don't need to copy or paste any tokens.)
-4. Back in Cursor, wait for the green dot next to **supabase**
+**Step 1 -- let the agent add the MCP server.** In an agent chat, paste this:
 
-Then test the connection in an agent chat:
+```
+Add the Supabase MCP server to my Cursor configuration. Edit (or create) the file at
+~/.cursor/mcp.json and add an MCP server named "supabase" with the URL
+https://mcp.supabase.com/mcp. Keep any servers already in the file exactly as they
+are, and make sure the final file is valid JSON. Show me the file when you're done.
+```
+
+The agent writes the small config file for you -- this is the same file Cursor opens if
+you click **Settings → Cursor Settings → Tools & MCP → New MCP Server**, just without
+you having to hand-edit any JSON.
+
+**Step 2 -- connect (log in).** Open **Settings → Cursor Settings → Tools & MCP**. You'll
+see **supabase** in the list with an amber dot and **"Needs authentication"**, plus a
+**Connect** button. Click **Connect** -- a browser window opens. Log in to Supabase if
+asked, then on the **Authorize Cursor** screen **select your organization** from the
+dropdown (if you just made your account, there's one default org) and click the green
+**Authorize Cursor**. Leave the permissions as they are -- they include Database
+read + write, which is exactly what we need. It uses a secure login, so there are no
+tokens to copy or paste. (If **supabase** doesn't appear yet, fully quit and reopen
+Cursor, since MCP servers load when Cursor starts.)
+
+**Step 3 -- confirm it's connected.** The dot next to **supabase** turns green once
+you've approved. Then test it in an agent chat:
 
 ```
 Using the Supabase MCP, list my Supabase projects and any tables in them.
@@ -417,7 +436,7 @@ Review and accept the changes. Check the browser -- the form should be there.
 
 1. Make sure the project still runs after you reopen Cursor.
 2. Make the form yours -- change the title, colours, and add placeholder example text in the fields, using one Cursor prompt at a time and committing after each.
-3. Confirm your Supabase account works and your "Cursor MCP" access token is saved.
+3. Confirm the Supabase MCP shows a green dot in Cursor (**Settings → Cursor Settings → Tools & MCP**); if not, click **Connect** to reconnect.
 4. Post a screenshot of your form in the community.
 
 ---
@@ -428,31 +447,26 @@ Review and accept the changes. Check the browser -- the form should be there.
 
 ## Step 3: Set Up Supabase + MCP + Secret Keys
 
-### Part A: Create the Supabase project
+### Part A: Confirm the Supabase MCP is connected
 
-1. Go to supabase.com
-2. Create a new project
-  - Name: `outreach-generator`
-  - Region: closest to you
-  - Generate a password and save it somewhere
-3. Wait for the project to provision (~2 minutes)
+You connected the Supabase MCP back in setup, so the agent can already talk to your
+Supabase account. Quick check: open **Settings → Cursor Settings → Tools & MCP** and
+make sure the dot next to **supabase** is green. If it says **"Needs authentication,"**
+click **Connect** and approve access. (If you skipped setup, follow *Before the Cohort →
+Connect Supabase to Cursor (MCP)* near the top of this manual.)
 
-### Part B: Connect the Supabase MCP server to Cursor
+### Part B: Create the Supabase project
 
-MCP lets Cursor's agent talk directly to your Supabase database. Instead of manually creating tables through the website, the agent can do it for you.
+Because the agent can talk to Supabase, let it create the project for you. In the agent chat:
 
-1. Go to supabase.com/dashboard/account/tokens
-2. Click **Generate new token**, name it "Cursor MCP", and copy the token immediately (you can only see it once)
-3. In Cursor, open Settings (Cmd+Shift+J on Mac, Ctrl+Shift+J on Windows)
-4. Click **MCP** in the left sidebar (under Features)
-5. Click **Add new MCP server**
-6. Fill in:
-  - **Name:** `supabase`
-  - **Type:** `command`
-  - **Command:** `npx -y @supabase/mcp-server-supabase@latest --access-token <paste-your-token-here>`
-7. Save and wait for the green dot to appear next to "supabase"
+```
+Using the Supabase MCP, create a new Supabase project called "outreach-generator"
+in my organization, in the region closest to me. Let me know when it's ready.
+```
 
-If you see a red dot, click the refresh button. If it persists, double-check your access token.
+Wait ~2 minutes for it to provision. (Prefer to do it by hand? Go to supabase.com →
+**New project**, name it `outreach-generator`, pick the closest region, and save the
+database password somewhere safe.)
 
 ### Part C: Create the database table
 
@@ -480,7 +494,7 @@ After it completes, check your Supabase dashboard (Table Editor) to verify the t
 
 ### Part D: Set up environment variables
 
-Two different connections, two different keys: the MCP token lets Cursor *manage* the database (admin); the Project URL + anon key let the *app* read and write at runtime.
+Two different connections: the MCP connection (set up earlier) lets Cursor *manage* your database while you build; the Project URL + anon key let the *app itself* read and write at runtime. You need both.
 
 1. In Supabase, go to **Settings** then **API** -- copy the **Project URL** and **anon key**
 2. Go to openrouter.ai, then **Keys** -- copy your API key
@@ -749,7 +763,6 @@ Keep these somewhere safe -- you'll need them for Vercel deployment:
 | `NEXT_PUBLIC_SUPABASE_URL`               | Supabase dashboard, then Settings, then API |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY`          | Supabase dashboard, then Settings, then API |
 | `OPENROUTER_API_KEY`                     | openrouter.ai, then Keys                    |
-| Supabase personal access token (for MCP) | supabase.com/dashboard/account/tokens       |
 
 
 ---
@@ -784,18 +797,13 @@ Each night follows the same shape: a short recap and demo, 90 minutes of buildin
 
 ### Supabase MCP won't connect
 
-If the Supabase MCP server shows a red dot in Cursor and won't connect, you may need
-to use a personal access token instead of relying on the default connection.
+If the **supabase** server shows an amber or red dot in **Settings → Cursor Settings →
+Tools & MCP**, work through these in order:
 
-1. Go to [supabase.com/dashboard/account/tokens](https://supabase.com/dashboard/account/tokens)
-2. Click **Generate new token**, name it "Cursor MCP", and copy the token immediately (you can only see it once)
-3. In Cursor, open Settings, click **MCP**, and edit the `supabase` server's command to include the token:
+1. **Click Connect / log in again.** An amber dot with **"Needs authentication"** just means you haven't approved access yet -- click **Connect**, log in to Supabase, select your organization, and click **Authorize Cursor**.
+2. **Fully quit and reopen Cursor.** MCP servers only load when Cursor starts, so a brand-new entry sometimes doesn't appear (or stays grey) until a full restart -- not just reloading the window.
+3. **Check the config file.** In an agent chat: `Open ~/.cursor/mcp.json and check that the "supabase" server has the url https://mcp.supabase.com/mcp and that the whole file is valid JSON.` A stray comma or a wrong URL is the usual culprit.
+4. **Make sure you're logged into Supabase in your browser**, then click **Connect** again -- the approval is much smoother when you're already signed in.
 
-```
-npx -y @supabase/mcp-server-supabase@latest --access-token <paste-your-token-here>
-```
-
-1. Save and click the refresh button -- wait for the green dot to appear
-
-If it still won't connect, double-check the token was copied correctly and hasn't expired, then generate a fresh one.
+If it still won't connect after a restart and re-login, delete the **supabase** entry and re-add it with the setup prompt (*Before the Cohort → Connect Supabase to Cursor (MCP)*).
 
