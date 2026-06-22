@@ -15,7 +15,7 @@ AI, Week 3 we debug and ship it live.
 Follow the setup video and the steps below before Week 1 so the three Tuesdays are
 pure building -- not a minute spent on installs. The goal is a build-ready laptop.
 
-Complete these before Week 1 (about 15 minutes):
+Complete these before Week 1:
 
 1. **Install Cursor** -- go to cursor.com, download and install it, and sign up for a Pro subscription (or start a free trial)
 2. **Create these accounts** (all free):
@@ -24,25 +24,22 @@ Complete these before Week 1 (about 15 minutes):
   - **Supabase** -- supabase.com
   - **OpenRouter** -- openrouter.ai (add $5 credit -- this will last you weeks beyond the cohort)
 
-### Get in the habit: let the Cursor agent do the work
+Then connect your tools (next section) so the Cursor agent can drive everything from
+night one.
+
+---
+
+## Connect Your Tools (before Week 1)
 
 Throughout buildAcademy we lean on one core skill: **using the Cursor agent to do the
 actual work** -- installing tools, running commands, and making the real changes to
 your app. You describe what you want in plain English; the agent executes it. We start
-practising right now by checking your connection to two services you'll use all
-cohort: **GitHub** and **Supabase**.
+practising right now by connecting the two services you'll use all cohort -- **GitHub**
+(where your code lives) and **Supabase** (your database). There's more on both in *The
+Tech Stack* below; for now the point is just to get them talking to Cursor, because
+these are the same skills you'll use to build and ship later.
 
-In plain terms:
-
-- **GitHub** -- a place on the internet that stores and backs up code, and lets you pull existing code down onto your machine. Think Google Docs version history, but for code.
-- **Supabase** -- a database: where an app stores its information so it remembers things. Think a smart spreadsheet your app can read from and write to.
-
-Don't worry about the detail yet -- we'll talk about both properly in Week 1. The
-reason we connect them now is that the exact skills you practise here -- pulling code
-from GitHub and letting Cursor talk to Supabase -- are the same ones you'll use to
-build and ship your app later.
-
-#### 1. Pull this manual from GitHub (your first agent prompt)
+### 1. Pull this manual from GitHub (your first agent prompt)
 
 Open Cursor, open a new agent chat (Cmd+L on Mac, Ctrl+L on Windows), and paste this:
 
@@ -60,7 +57,7 @@ your GitHub connection works -- you've just pulled real code down from the inter
 asking in plain English. Keep this manual open in Cursor as your reference for all
 three weeks.
 
-#### 2. Connect Supabase to Cursor (MCP)
+### 2. Connect Supabase to Cursor (MCP)
 
 MCP is what lets the Cursor agent talk directly to Supabase -- so later it can create
 your database tables and read your data for you, without you leaving Cursor. We'll set
@@ -222,69 +219,14 @@ flowchart LR
 Your code travels separately: you push it to GitHub (the backup), and Vercel automatically
 turns that into a live website. Every time you push, the live site updates itself.
 
-**The flow:**
-
-1. A user visits your Vercel URL and fills in the form -- prospect name, company, role, what you offer, their pain point
-2. The app sends that data to an API route, which forwards it to OpenRouter with the prompt
-3. The AI model generates a personalised cold email and LinkedIn message and returns them as JSON
-4. The results appear on screen with copy buttons
-5. Clicking "Save to History" writes everything to Supabase
-6. The History page reads from Supabase and displays all saved entries
-
-Your code gets from your laptop to the internet via GitHub (storage) and Vercel (hosting). Every time you push to GitHub, Vercel automatically redeploys.
-
 **Three screens:**
 
 - **Generate** -- a form where you enter the prospect's details
 - **Results** -- displays the AI-generated email and LinkedIn message
 - **History** -- shows all your saved outreach entries
 
-**The database:**
-
-```
-Table: outreach
------------------------------------------
-id              | uuid (auto-generated)
-prospect_name   | text
-company         | text
-role            | text
-offer           | text
-pain_point      | text
-email_subject   | text
-email_body      | text
-linkedin_message| text
-created_at      | timestamp (auto-generated)
------------------------------------------
-```
-
-- The first five columns are what you type in (inputs)
-- The next three are what the AI generates (outputs)
-- The last two are automatic (the database handles them)
-
- **The AI prompt:**
-
-```
-You are an expert B2B copywriter.
-
-Write two pieces of outreach copy for the following context:
-
-Prospect: [name] -- [role] at [company]
-What we offer: [your_offer]
-Their likely pain point: [pain_point]
-
-Output:
-1. A cold email with a subject line. Keep it under 150 words.
-   Conversational, not salesy. End with one clear CTA.
-2. A LinkedIn connection message. Under 300 characters.
-   Warm, human, specific.
-
-Format your response as JSON:
-{
-  "email_subject": "",
-  "email_body": "",
-  "linkedin_message": ""
-}
-```
+We'll design the database table in Week 1 and write the AI prompt in Week 2 -- where
+each one is actually used.
 
 ---
 
@@ -354,9 +296,23 @@ This is what "thinking in data" looks like:
 
 ```
 Table: outreach
-  prospect_name, company, role, offer, pain_point   ← inputs (what you type)
-  email_subject, email_body, linkedin_message       ← outputs (what the AI writes)
+-----------------------------------------
+id              | uuid (auto-generated)
+prospect_name   | text
+company         | text
+role            | text
+offer           | text
+pain_point      | text
+email_subject   | text
+email_body      | text
+linkedin_message| text
+created_at      | timestamp (auto-generated)
+-----------------------------------------
 ```
+
+- The first five columns are what you type in (**inputs**)
+- The next three are what the AI generates (**outputs**)
+- The last two are automatic (the database handles them)
 
 We save the inputs next to the outputs so your history shows *who* you wrote to and
 *why*, not just the text. We'll build this table for real in Week 2.
@@ -522,7 +478,35 @@ After this, restart the dev server so Next.js picks up the new environment varia
 
 ## Step 4: Build the API Route + AI Integration
 
-In the agent chat:
+This is the heart of the app: the API route takes the form details, sends them to the
+AI with a carefully written prompt, and gets back structured copy. Here's the prompt
+we're building around -- notice it asks for **JSON** so the code can reliably split the
+subject, body, and LinkedIn message apart:
+
+```
+You are an expert B2B copywriter.
+
+Write two pieces of outreach copy for the following context:
+
+Prospect: [name] -- [role] at [company]
+What we offer: [your_offer]
+Their likely pain point: [pain_point]
+
+Output:
+1. A cold email with a subject line. Keep it under 150 words.
+   Conversational, not salesy. End with one clear CTA.
+2. A LinkedIn connection message. Under 300 characters.
+   Warm, human, specific.
+
+Format your response as JSON:
+{
+  "email_subject": "",
+  "email_body": "",
+  "linkedin_message": ""
+}
+```
+
+Now build it. In the agent chat:
 
 ```
 I need to add AI-powered email generation to this app. Do the following:
