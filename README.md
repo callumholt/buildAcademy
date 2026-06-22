@@ -345,20 +345,24 @@ After creating it, open the project folder and start the dev server.
 
 ### Connect to GitHub
 
-1. Go to github.com and create a new repository
-  - Name: `outreach-generator`
-  - Visibility: Private
-  - Do NOT add a README (we already have one)
-2. Copy the repository URL
-3. In Cursor's agent chat:
+No clicking around github.com -- the agent can create the repository *and* push your
+code for you using the GitHub CLI. In the agent chat:
 
 ```
-Commit all current changes with the message "initial project setup".
-Then add a git remote called "origin" pointing to <paste-your-github-url>
-and push to the main branch.
+Put this project on GitHub using the GitHub CLI (gh):
+1. If the GitHub CLI (gh) isn't installed, install it (Homebrew on Mac, or the
+   official installer on Windows).
+2. If I'm not logged in to GitHub yet, run "gh auth login" and walk me through it --
+   choose GitHub.com over HTTPS and authenticate in the browser when it opens.
+3. Commit all current changes with the message "initial project setup".
+4. Create a new PRIVATE GitHub repo called "outreach-generator" from this project,
+   add it as the "origin" remote, and push to the main branch.
 ```
 
-1. Refresh GitHub in your browser -- your code should be there
+The first time you run this, a browser window opens to log in to GitHub -- approve it
+and the agent does the rest. When it finishes, your code is on GitHub (open the repo
+link it gives you to check). Logging in here also means every future `git push` just
+works -- no logging in again.
 
 ---
 
