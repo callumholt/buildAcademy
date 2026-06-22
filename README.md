@@ -397,7 +397,6 @@ Review and accept the changes. Check the browser -- the form should be there.
 1. Make sure the project still runs after you reopen Cursor.
 2. Make the form yours -- change the title, colours, and add placeholder example text in the fields, using one Cursor prompt at a time and committing after each.
 3. Confirm the Supabase MCP shows a green dot in Cursor (**Settings → Cursor Settings → Tools & MCP**); if not, click **Connect** to reconnect.
-4. Post a screenshot of your form in the community.
 
 ---
 
@@ -412,7 +411,7 @@ Review and accept the changes. Check the browser -- the form should be there.
 You connected the Supabase MCP back in setup, so the agent can already talk to your
 Supabase account. Quick check: open **Settings → Cursor Settings → Tools & MCP** and
 make sure the dot next to **supabase** is green. If it says **"Needs authentication,"**
-click **Connect** and approve access. (If you skipped setup, follow *Before the Cohort →
+click **Connect** and approve access. (If you skipped setup, follow *Connect Your Tools →
 Connect Supabase to Cursor (MCP)* near the top of this manual.)
 
 ### Part B: Create the Supabase project
@@ -746,11 +745,11 @@ Then start a new agent chat and try again with a clearer prompt.
 Keep these somewhere safe -- you'll need them for Vercel deployment:
 
 
-| Key                                      | Where to find it                            |
-| ---------------------------------------- | ------------------------------------------- |
-| `NEXT_PUBLIC_SUPABASE_URL`               | Supabase dashboard, then Settings, then API |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY`          | Supabase dashboard, then Settings, then API |
-| `OPENROUTER_API_KEY`                     | openrouter.ai, then Keys                    |
+| Key                             | Where to find it                            |
+| ------------------------------- | ------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Supabase dashboard, then Settings, then API |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase dashboard, then Settings, then API |
+| `OPENROUTER_API_KEY`            | openrouter.ai, then Keys                    |
 
 
 ---
@@ -793,5 +792,4 @@ Tools & MCP**, work through these in order:
 3. **Check the config file.** In an agent chat: `Open ~/.cursor/mcp.json and check that the "supabase" server has the url https://mcp.supabase.com/mcp and that the whole file is valid JSON.` A stray comma or a wrong URL is the usual culprit.
 4. **Make sure you're logged into Supabase in your browser**, then click **Connect** again -- the approval is much smoother when you're already signed in.
 
-If it still won't connect after a restart and re-login, delete the **supabase** entry and re-add it with the setup prompt (*Before the Cohort → Connect Supabase to Cursor (MCP)*).
-
+If it still won't connect after a restart and re-login, delete the **supabase** entry and re-add it with the setup prompt (*Connect Your Tools → Connect Supabase to Cursor (MCP)*).
