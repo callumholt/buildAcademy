@@ -118,6 +118,12 @@ lecture. We start at 6:00pm sharp.
 
 ---
 
+# WEEK 1 -- Scope & Scaffold
+
+**End state tonight:** a scoped plan for the app, a running Next.js project, and the Generate form on screen at localhost:3000.
+
+First, the big picture -- the tools we'll use, the three habits that keep you unstuck, what we're building, and the plan for all three weeks. Then we start scoping.
+
 ## The Tech Stack
 
 Here's what each tool does, in plain English:
@@ -252,10 +258,6 @@ WEEK 3 -- Debug & Ship
 ```
 
 ---
-
-# WEEK 1 -- Scope & Scaffold
-
-**End state tonight:** a scoped plan for the app, a running Next.js project, and the Generate form on screen at localhost:3000.
 
 ## Step 0: Scope the App (before any code)
 
