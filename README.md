@@ -158,6 +158,8 @@ gap, the deployment cliff).
 
 Our app does one thing: you type in who you're reaching out to and why, and it gives you a personalised cold email and LinkedIn message.
 
+For the complete spec -- every feature, the data model, the AI prompt, the architecture, and what's deliberately out of scope -- see the **[Product Requirements Document (PRD)](PRD.md)**.
+
 ### Why this app?
 
 This project is deliberately simple, but it covers every fundamental skill you need to build real software:
@@ -290,6 +292,17 @@ Here's the framework applied to the app we're building together:
 - **Later (out of scope):** login, payments, multiple users. We name these so we stop trying to build everything at once.
 
 > **Scope is not a limitation -- it's the skill. Naming what you're NOT building is how anything ever ships.**
+
+### Go deeper: the full PRD
+
+Those five answers are the *short* version of scoping. The fully written-out version --
+every feature, the data, the AI prompt, the architecture, and everything we're
+deliberately leaving out -- lives in the **[Product Requirements Document (PRD)](PRD.md)**.
+
+A PRD is just scoping expanded into a plan you (or the agent) can build from. Skim it to
+see where tonight's SCOPE answers lead, and use it as a template when you scope your own
+app after the cohort -- swap the problem, users, features, data, and prompt, and you've
+got a plan for any AI SaaS MVP.
 
 ### From scope to structure
 
