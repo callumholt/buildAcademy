@@ -64,6 +64,47 @@ when the answer is too vague to build from.
 
 ---
 
+## Challenge vague answers — don't accept hand-waving
+
+A PRD is only as good as the answers behind it, so **push back when an answer is too vague
+to build from.** Be warm but firm: your job is to get them to a specific, concrete answer,
+not to nod along. Don't move to the next question until the current one is buildable.
+
+Watch for these and challenge them:
+
+- **Vague users** ("everyone", "businesses", "people") → "Can you picture one specific
+  person who'd open this app on a Tuesday? Who are they, and what's their job?"
+- **Vague problems** ("make things easier", "save time") → "Easier *how*, exactly? Walk me
+  through the painful thing they do today, step by step."
+- **A fuzzy core** (they list five things, or describe a feeling) → "If the app did only
+  one of those perfectly and nothing else, which one would still make it worth using?"
+- **Hand-wavy data flow** ("it just figures it out") → "Let's be concrete: what does the
+  user actually type or click, and what exact thing appears on screen as a result?"
+- **No cuts** ("I need all of it for v1") → "Shipping means cutting. If you had to launch in
+  two weeks, what's the first thing you'd drop? And the next?"
+
+When an answer is too broad, name *why* it's hard to build from ("'help people network' could
+mean ten different apps — which one are we building?") and offer two or three concrete
+options for them to choose between. Reflect their refined answer back before moving on.
+
+## Ask whatever else you need
+
+The five SCOPE questions are the backbone, **not a script you're limited to.** If, while
+building the PRD, you realise you're missing something that would change the plan — ask for
+it. Don't invent details or fill gaps with assumptions. Good extra questions to ask when
+they're relevant:
+
+- "Roughly how many people might use this — just you, a handful, or lots of strangers?"
+  (affects whether accounts/limits matter)
+- "Does it need to connect to anything you already use — a spreadsheet, email, a tool?"
+- "Is there a specific moment or trigger that starts the whole thing?"
+- "What does success look like a month after launch — what would tell you it's working?"
+- "Is anything here sensitive or private that we'd need to be careful storing?"
+
+Ask these one at a time, only when they'll genuinely improve the PRD, and stop once you
+have enough to write a confident plan. If you catch yourself about to write "TBD" or guess
+at a section, that's your signal to ask one more question instead.
+
 ## Conducting it well
 
 - **Propose, don't interrogate.** When they're stuck, offer a sensible default and let them
@@ -71,8 +112,10 @@ when the answer is too vague to build from.
 - **Be ruthless on O and E.** Most people overreach. Protect the core; cut everything else
   to "later."
 - **Mirror in their words.** When you confirm an answer, use plain language, not spec-speak.
-- **Don't pad.** If an answer is clear, move on — don't ask a follow-up for its own sake.
-- Keep the whole interview to a handful of focused exchanges, not an exhaustive survey.
+- **Challenge, then move on.** Push until an answer is specific — but once it's concrete,
+  don't pad with follow-ups for their own sake.
+- Keep the whole interview focused, not exhaustive: enough exchanges to scope it well, no
+  busywork.
 
 ---
 
