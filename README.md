@@ -669,19 +669,36 @@ Pick one or two things to improve and ask Cursor to do them:
 
 ## Step 8: Deploy to Vercel
 
-This is where your app goes live on the internet.
+This is where your app goes live on the internet -- and, true to buildAcademy, the
+agent can do it for you with the Vercel CLI. In the agent chat:
 
-1. Go to vercel.com, then **Add New**, then **Project**
-2. **Import from GitHub** and select `outreach-generator`
-3. Before deploying, add these **environment variables** (copy them from your `.env.local` file):
-  - `NEXT_PUBLIC_SUPABASE_URL`
-  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-  - `OPENROUTER_API_KEY`
-4. Click **Deploy**
-5. Wait ~2 minutes for the build to finish
-6. Click the URL Vercel gives you -- that's your app, live on the internet
+```
+Deploy this project to Vercel using the Vercel CLI:
+1. If the Vercel CLI isn't installed, install it (npm install -g vercel).
+2. If I'm not logged in, run "vercel login" and walk me through it -- I'll approve
+   the login in my browser.
+3. Link this project to a new Vercel project called "outreach-generator", accepting
+   the auto-detected Next.js settings.
+4. Add my three environment variables from .env.local to the Production environment:
+   NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, and OPENROUTER_API_KEY.
+5. Connect my GitHub repo so future pushes auto-deploy (vercel git connect).
+6. Deploy to production (vercel --prod) and give me the live URL.
+```
 
-`.env.local` only ever existed on your laptop. Vercel needs its own copy of the secrets -- that's why you add the environment variables here. This is exactly how every production app works.
+The first time, a browser window opens to log in to Vercel -- approve it and the agent
+handles the rest. After ~2 minutes you'll get a live URL -- open it; that's your app, on
+the internet.
+
+**Why the environment variables (step 4)?** `.env.local` only ever lived on your laptop,
+and it never gets pushed to GitHub. Vercel needs its own copy of the secrets to run your
+app. This is exactly how every production app works.
+
+**Why connect the repo (step 5)?** From now on, every `git push` rebuilds and redeploys
+your live site automatically -- no manual deploys after this.
+
+(Prefer clicking? You can also go to vercel.com → **Add New → Project**, import
+`outreach-generator` from GitHub, add the three environment variables, and click
+**Deploy** -- same result.)
 
 ### Test the live app
 
@@ -693,8 +710,8 @@ This is where your app goes live on the internet.
 
 If something doesn't work:
 
-- **App loads but AI doesn't work** -- you probably forgot to add `OPENROUTER_API_KEY` in Vercel's environment variables
-- **App won't build** -- read the error log in Vercel. It's usually a TypeScript error. Fix it in Cursor, commit, push, and Vercel will automatically redeploy
+- **App loads but AI doesn't work** -- the `OPENROUTER_API_KEY` env var probably didn't make it to Vercel. Ask the agent: `Check my Vercel production environment variables and add OPENROUTER_API_KEY from .env.local if it's missing, then redeploy.`
+- **App won't build** -- read the build error (the Vercel CLI prints it, or check the deployment log at vercel.com). It's usually a TypeScript error. Fix it in Cursor, commit, push, and Vercel redeploys automatically
 
 ---
 
