@@ -335,7 +335,58 @@ We save the inputs next to the outputs so your history shows *who* you wrote to 
 Keep the SCOPE framework -- it's the move you'll repeat for every app you build after
 this cohort. Tonight we put it to work on the app we're all building together.
 
+### The payoff: scope well, and the build almost writes itself
 
+Here's why all this planning matters. Once you've put the time, energy, and effort into
+scoping properly -- once you and the agent both understand exactly what you're building --
+the build itself becomes remarkably straightforward. With a clear PRD in hand, you can
+often **one-shot the whole app from a single prompt** and get something accurate and
+close to done, because there's no ambiguity left for the agent to guess at. The plan *is*
+the hard part; the code is what flows out of it.
+
+For teaching purposes, we deliberately break the build into small steps across the next
+three weeks -- so you see every layer, understand what each piece does, and learn to fix
+it when it breaks. But once you've done it once and you trust your scope, **you don't have
+to go step by step.** You can hand the agent your PRD and let it build the lot in one go.
+
+Here's a single prompt that takes a PRD like [PRD.md](PRD.md) and builds *and* deploys the
+whole app -- database, code, and live URL -- using the Supabase MCP, the GitHub CLI, and
+the Vercel CLI you set up earlier:
+
+```
+Read PRD.md in this project and build the entire app it describes, end to end, then
+deploy it live. Work through it in this order and tell me what you're doing at each stage:
+
+1. Scaffold a new Next.js app (TypeScript, Tailwind, App Router) for this project.
+
+2. Using the Supabase MCP, create a new Supabase project for this app and create the
+   database table(s) exactly as described in the PRD's data model (disable Row Level
+   Security for now since there's no auth yet).
+
+3. Create a .env.local with the Supabase Project URL, the Supabase anon key, and an
+   OPENROUTER_API_KEY (ask me for the OpenRouter key if you don't have it). Install
+   @supabase/supabase-js and add a shared Supabase client.
+
+4. Build every screen, form, and feature in the PRD's feature list and functional
+   requirements. If the PRD includes an AI feature, create a Next.js API route that calls
+   OpenRouter with the PRD's prompt and returns structured JSON, and keep the API key
+   server-side only.
+
+5. Wire up saving to and reading from the Supabase table per the PRD's data flow.
+
+6. Put it on GitHub with the GitHub CLI: if gh isn't installed or I'm not logged in, set
+   that up first, then create a new PRIVATE repo from this project, commit, and push.
+
+7. Deploy to Vercel with the Vercel CLI: install/login if needed, create the project, add
+   my three environment variables to Production, connect the GitHub repo so future pushes
+   auto-deploy, and run a production deploy. Give me the live URL when it's done.
+
+Commit after each major step. If anything is ambiguous in the PRD, ask me rather than
+guessing.
+```
+
+You don't need to use that tonight -- it's here so you can see where we're heading. The
+rest of this manual walks the same journey one careful step at a time.
 
 ## YOUR TURN!!!
 
