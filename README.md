@@ -335,6 +335,10 @@ We save the inputs next to the outputs so your history shows *who* you wrote to 
 Keep the SCOPE framework -- it's the move you'll repeat for every app you build after
 this cohort. Tonight we put it to work on the app we're all building together.
 
+
+
+## YOUR TURN!!!
+
 ## Step 1: Create the Project + Connect to GitHub
 
 ### Create the project
@@ -739,6 +743,21 @@ You've built a fully working app. It's live, it generates real output, and it sa
 5. **Custom domain** -- right now it's on a `.vercel.app` URL. You can connect your own domain in Vercel's settings.
 
 These aren't scary -- they're the next steps, and they're exactly what the ongoing community covers, module by module. You now understand the architecture well enough to ask Cursor to help you add them. The architecture is identical for any app -- swap the fields, change the prompt, redesign the table, and you can build for your own idea.
+
+### Scope your own app (the SCOPE skill)
+
+When you're ready to build your own idea, start the same way we started this one: scope it
+first. This repo includes a reusable skill that runs the **SCOPE** interview for you and
+writes a full PRD. In a Cursor agent chat, paste:
+
+```
+Follow skills/scope-to-prd/SKILL.md: interview me about the app I want to build,
+one question at a time, then write my PRD to PRD.md.
+```
+
+The agent asks you the five SCOPE questions, then turns your answers into a complete plan
+(see [skills/scope-to-prd/SKILL.md](skills/scope-to-prd/SKILL.md) and the example
+[PRD.md](PRD.md)) -- the same move you'll repeat for every app you build after this.
 
 ---
 
