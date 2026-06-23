@@ -122,37 +122,7 @@ lecture. We start at 6:00pm sharp.
 
 **End state tonight:** a scoped plan for the app, a running Next.js project, and the Generate form on screen at localhost:3000.
 
-First, the big picture -- the tools we'll use, the three habits that keep you unstuck, what we're building, and the plan for all three weeks. Then we start scoping.
-
-## The Tech Stack
-
-Here's what each tool does, in plain English:
-
-
-| Tool           | What it does                                                                                                                             |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| **Cursor**     | Your AI building partner. You describe what you want in English, it writes the code.                                                     |
-| **Next.js**    | The framework -- the structure your app is built on. Like the framing of a house.                                                        |
-| **Supabase**   | Your database -- where your app stores information. Like a spreadsheet your app can read and write to.                                   |
-| **MCP**        | The bridge -- lets Cursor talk directly to Supabase, so the agent can create tables and manage your database without you leaving Cursor. |
-| **GitHub**     | Your save file -- keeps a history of every version of your code. Like Google Docs version history.                                       |
-| **Vercel**     | Your hosting -- puts your app on the internet so anyone can visit it.                                                                    |
-| **OpenRouter** | Your AI access -- one key that connects to any AI model (Claude, GPT, etc.)                                                              |
-
-
----
-
-## Three Habits That Will Save You
-
-Keep these in mind every night. These three are what YouTube won't teach you -- they
-map to the three ways people get stuck with AI tools (the fix spiral, the planning
-gap, the deployment cliff).
-
-1. **The Checkpoint Rule** -- Before we start anything new, we commit and push to GitHub. It's a save point. If the next thing breaks, we go back to here.
-2. **The Reset Rule** -- If Cursor starts spiralling (fixing one thing and breaking another), we stop, revert to the last checkpoint, and try a different prompt. We never chase a fix spiral.
-3. **One thing at a time** -- We never ask Cursor to do five things at once. One feature, one prompt, one test.
-
----
+First, the big picture -- what we're building, the tools we'll use, the three habits that keep you unstuck, and the plan for all three weeks. Then we start scoping.
 
 ## What We're Building
 
@@ -235,6 +205,36 @@ turns that into a live website. Every time you push, the live site updates itsel
 
 We'll design the database table in Week 1 and write the AI prompt in Week 2 -- where
 each one is actually used.
+
+---
+
+## The Tech Stack
+
+Here's what each tool does, in plain English:
+
+
+| Tool           | What it does                                                                                                                             |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| **Cursor**     | Your AI building partner. You describe what you want in English, it writes the code.                                                     |
+| **Next.js**    | The framework -- the structure your app is built on. Like the framing of a house.                                                        |
+| **Supabase**   | Your database -- where your app stores information. Like a spreadsheet your app can read and write to.                                   |
+| **MCP**        | The bridge -- lets Cursor talk directly to Supabase, so the agent can create tables and manage your database without you leaving Cursor. |
+| **GitHub**     | Your save file -- keeps a history of every version of your code. Like Google Docs version history.                                       |
+| **Vercel**     | Your hosting -- puts your app on the internet so anyone can visit it.                                                                    |
+| **OpenRouter** | Your AI access -- one key that connects to any AI model (Claude, GPT, etc.)                                                              |
+
+
+---
+
+## Three Habits That Will Save You
+
+Keep these in mind every night. These three are what YouTube won't teach you -- they
+map to the three ways people get stuck with AI tools (the fix spiral, the planning
+gap, the deployment cliff).
+
+1. **The Checkpoint Rule** -- Before we start anything new, we commit and push to GitHub. It's a save point. If the next thing breaks, we go back to here.
+2. **The Reset Rule** -- If Cursor starts spiralling (fixing one thing and breaking another), we stop, revert to the last checkpoint, and try a different prompt. We never chase a fix spiral.
+3. **One thing at a time** -- We never ask Cursor to do five things at once. One feature, one prompt, one test.
 
 ---
 
