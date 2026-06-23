@@ -354,35 +354,40 @@ whole app -- database, code, and live URL -- using the Supabase MCP, the GitHub 
 the Vercel CLI you set up earlier:
 
 ```
-Read PRD.md in this project and build the entire app it describes, end to end, then
-deploy it live. Work through it in this order and tell me what you're doing at each stage:
+Read PRD.md in this project and build the entire app it describes, then put it live on
+the internet. Tell me what you're doing at each stage.
 
-1. Scaffold a new Next.js app (TypeScript, Tailwind, App Router) for this project.
+Here are my keys -- these are just examples, so use my real values instead:
 
-2. Using the Supabase MCP, create a new Supabase project for this app and create the
-   database table(s) exactly as described in the PRD's data model (disable Row Level
-   Security for now since there's no auth yet).
+SUPABASE_URL = https://abcd1234efgh.supabase.co
+SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example-anon-key-here
+OPENROUTER_API_KEY = sk-or-v1-1234567890abcdef1234567890abcdef
 
-3. Create a .env.local with the Supabase Project URL, the Supabase anon key, and an
-   OPENROUTER_API_KEY (ask me for the OpenRouter key if you don't have it). Install
-   @supabase/supabase-js and add a shared Supabase client.
+Then:
 
-4. Build every screen, form, and feature in the PRD's feature list and functional
-   requirements. If the PRD includes an AI feature, create a Next.js API route that calls
-   OpenRouter with the PRD's prompt and returns structured JSON, and keep the API key
-   server-side only.
+1. Build the app with all the screens and features exactly as the PRD describes.
 
-5. Wire up saving to and reading from the Supabase table per the PRD's data flow.
+2. Using the Supabase MCP, create the database table(s) in my Supabase project exactly
+   as the PRD's data model describes (turn off Row Level Security for now, since there's
+   no login yet).
 
-6. Put it on GitHub with the GitHub CLI: if gh isn't installed or I'm not logged in, set
-   that up first, then create a new PRIVATE repo from this project, commit, and push.
+3. Connect the app to my database and, if the PRD needs AI, to the AI -- using the keys
+   above. Keep these keys private; never expose them in the part of the app that runs in
+   people's browsers.
 
-7. Deploy to Vercel with the Vercel CLI: install/login if needed, create the project, add
-   my three environment variables to Production, connect the GitHub repo so future pushes
-   auto-deploy, and run a production deploy. Give me the live URL when it's done.
+4. Make the app save information to my database and read it back exactly the way the PRD
+   describes.
 
-Commit after each major step. If anything is ambiguous in the PRD, ask me rather than
-guessing.
+5. Put my code on GitHub using the GitHub CLI: if it isn't installed or I'm not logged in,
+   set that up first, then create a new private repository and upload my code.
+
+6. Publish it with the Vercel CLI so it's live on the internet: install and log in if
+   needed, create the project, add my three keys above so the live app can use them,
+   connect my GitHub repository so future changes go live automatically, and deploy. Give
+   me the live web address when it's done.
+
+Save my progress to GitHub after each major step. If anything in the PRD is unclear, ask
+me instead of guessing.
 ```
 
 You don't need to use that tonight -- it's here so you can see where we're heading. The
