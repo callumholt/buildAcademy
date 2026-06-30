@@ -120,7 +120,7 @@ lecture. We start at 6:00pm sharp.
 
 # WEEK 1 -- Scope & Scaffold
 
-**End state tonight:** a scoped plan for the app, a running Next.js project, and the Generate form on screen at localhost:3000.
+**End state tonight:** a scoped plan for the app, the project running on your laptop, and the Generate form on screen in your browser.
 
 First, the big picture -- what we're building, the tools we'll use, the three habits that keep you unstuck, and the plan for all three weeks. Then we start scoping.
 
@@ -147,7 +147,7 @@ By the end of three weeks you'll have touched every layer of a modern web applic
 ```mermaid
 flowchart LR
     User(("User")) -- fills in form --> Form[Generate Form]
-    Form -- sends data --> API[API Route]
+    Form -- sends data --> API["The messenger<br/><i>connects form to AI</i>"]
     API -- prompt + context --> OR[OpenRouter]
     OR -- JSON response --> API
     API -- email + LinkedIn msg --> Results[Results Screen]
@@ -167,7 +167,7 @@ filling in a form, handing it to an assistant, and getting a finished letter bac
 ```mermaid
 flowchart TD
     A["You type in the form<br/><i>Sarah, VP Sales at Acme,<br/>I sell CRM software,<br/>her team wastes hours on admin</i>"]
-    A -- "those 5 details get sent" --> B["The app's API route<br/><i>the messenger in the middle</i>"]
+    A -- "those 5 details get sent" --> B["The messenger in the middle<br/><i>connects your form to the AI</i>"]
     B -- "wraps your details in<br/>a request and asks the AI" --> C["OpenRouter (the AI)<br/><i>writes the copy</i>"]
     C -- "sends back finished writing<br/>as neat, labelled data" --> B
     B -- "passes the writing<br/>to the screen" --> D["Results screen<br/><i>Subject + email body<br/>+ LinkedIn message,<br/>each with a Copy button</i>"]
@@ -179,10 +179,10 @@ flowchart TD
 
 **What's actually moving at each arrow:**
 
-1. **You → API route:** the 5 things you typed (name, company, role, your offer, their pain point)
-2. **API route → AI:** those details wrapped in instructions ("write a cold email and a LinkedIn message")
-3. **AI → API route:** the finished writing, sent back as labelled data (`email_subject`, `email_body`, `linkedin_message`)
-4. **API route → screen:** the writing, shown to you with Copy buttons
+1. **You → messenger:** the 5 things you typed (name, company, role, your offer, their pain point)
+2. **Messenger → AI:** those details wrapped in instructions ("write a cold email and a LinkedIn message")
+3. **AI → messenger:** the finished writing, sent back as labelled data (`email_subject`, `email_body`, `linkedin_message`)
+4. **Messenger → screen:** the writing, shown to you with Copy buttons
 5. **Screen → database:** when you hit Save, everything (your inputs + the AI's outputs) is stored permanently
 6. **Database → History page:** the History page reads everything back out so you can see all your past work
 
@@ -216,7 +216,6 @@ Here's what each tool does, in plain English:
 | Tool           | What it does                                                                                                                             |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | **Cursor**     | Your AI building partner. You describe what you want in English, it writes the code.                                                     |
-| **Next.js**    | The framework -- the structure your app is built on. Like the framing of a house.                                                        |
 | **Supabase**   | Your database -- where your app stores information. Like a spreadsheet your app can read and write to.                                   |
 | **MCP**        | The bridge -- lets Cursor talk directly to Supabase, so the agent can create tables and manage your database without you leaving Cursor. |
 | **GitHub**     | Your save file -- keeps a history of every version of your code. Like Google Docs version history.                                       |
@@ -245,12 +244,12 @@ This is the checklist for the whole cohort. After every step, we commit and push
 ```
 WEEK 1 -- Scope & Scaffold
 0. Scope the app (on paper -- no code yet)
-1. Create the Next.js project + connect to GitHub       → CHECKPOINT
+1. Create the project + connect to GitHub                → CHECKPOINT
 2. Build the Generate form (5 fields + button)           → CHECKPOINT
 
 WEEK 2 -- Database & AI
 3. Set up Supabase (MCP + table + secret keys)           → CHECKPOINT
-4. Build the API route (connect form to OpenRouter)      → CHECKPOINT
+4. Connect the form to the AI (OpenRouter)               → CHECKPOINT
 5. Build the Results screen (email + LinkedIn display)   → CHECKPOINT
 6. Add "Save to History" (write to Supabase)             → CHECKPOINT
 
@@ -404,19 +403,22 @@ rest of this manual walks the same journey one careful step at a time.
 3. Type this prompt:
 
 ```
-Create a new Next.js project called "outreach-generator" on my Desktop.
-Use TypeScript, Tailwind CSS, and the App Router.
-After creating it, open the project folder and start the dev server.
+Create a new web app project called "outreach-generator" on my Desktop.
+Use whatever stack is standard for building a modern web app in Cursor.
+After creating it, open the project folder and start the app so I can see it in my browser.
 ```
 
 1. Wait for the agent to finish
-2. Start the app by prompting it with `start the app` . Then open your browser to [http://localhost:3000](http://localhost:3000) -- that's your app running
+2. Start the app by prompting it with `start the app`. Then open your browser to the address the agent gives you (usually [http://localhost:3000](http://localhost:3000)) — that's your app running
 
 ### Key files to know
 
-- `app/page.tsx` -- this is what you see in the browser. We'll replace it.
-- `app/layout.tsx` -- this wraps every page. Think of it as the frame around every screen.
-- `.env.local` -- this is where we'll put our secret keys. This file never gets uploaded to GitHub.
+The agent will create a bunch of files — you don't need to understand them all. These three
+are worth knowing:
+
+- **The main page** — what you see in the browser. We'll replace it with our form.
+- **The layout** — the frame around every screen. Rarely needs changing.
+- **`.env.local`** — where secret keys live. This file never gets uploaded to GitHub.
 
 ### Connect to GitHub
 
@@ -446,7 +448,7 @@ works -- no logging in again.
 In Cursor's agent chat:
 
 ```
-Replace the contents of app/page.tsx with a clean outreach email generator form.
+Replace the main page with a clean outreach email generator form.
 
 The form should have these fields:
 - Prospect Name (text input)
@@ -457,10 +459,10 @@ The form should have these fields:
 
 And a large "Generate" button at the bottom.
 
-Use Tailwind CSS for styling. Make it look professional -- centered on the page,
-clean spacing, subtle shadows. The page title should be "Outreach Generator".
+Make it look professional — centered on the page, clean spacing, subtle shadows.
+The page title should be "Outreach Generator".
 
-The form should not submit yet -- just build the UI.
+The form should not submit yet — just build the UI.
 ```
 
 Review and accept the changes. Check the browser -- the form should be there.
@@ -526,29 +528,36 @@ Disable Row Level Security on this table for now.
 
 After it completes, check your Supabase dashboard (Table Editor) to verify the table is there.
 
-### Part D: Set up environment variables
+> **Why another Supabase step?** Part C built the storage in the cloud (the `outreach`
+> table). Part D teaches *your app* how to use it — like giving the website the keys to
+> the filing cabinet. Cursor's MCP connection (from setup) lets the agent manage your
+> database while you build. The Project URL + anon key let the app itself read and write
+> when someone clicks "Save to History". You need both.
 
-Two different connections: the MCP connection (set up earlier) lets Cursor *manage* your database while you build; the Project URL + anon key let the *app itself* read and write at runtime. You need both.
+### Part D: Connect the app to Supabase
 
-1. In Supabase, go to **Settings** then **API** -- copy the **Project URL** and **anon key**
-2. Go to openrouter.ai, then **Keys** -- copy your API key
+1. In Supabase, go to **Settings** then **API** — copy the **Project URL** and **anon key**
+2. Go to openrouter.ai, then **Keys** — copy your API key
 3. In Cursor's agent chat:
 
 ```
-Set up Supabase and environment variables in this project:
+Connect this app to my Supabase project so it can save and load data later.
 
-1. Create a .env.local file with these values:
-   NEXT_PUBLIC_SUPABASE_URL=<paste-your-supabase-url>
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=<paste-your-anon-key>
-   OPENROUTER_API_KEY=<paste-your-openrouter-key>
+Create a .env.local file with these values (paste yours in below):
 
-2. Install the @supabase/supabase-js package
+NEXT_PUBLIC_SUPABASE_URL=<paste-your-supabase-url>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<paste-your-anon-key>
+OPENROUTER_API_KEY=<paste-your-openrouter-key>
 
-3. Create a file at lib/supabase.ts that creates and exports a Supabase client
-   using those environment variables
+Do whatever setup is needed so this app can talk to Supabase when it's running —
+install any packages and add any connection code you need.
+
+Don't wire up the Save button yet — just get the app ready to talk to Supabase.
+
+When you're done, explain what you set up in plain English.
 ```
 
-After this, restart the dev server so Next.js picks up the new environment variables. In the agent chat: `Stop the dev server and start it again`
+After this, restart the app so it picks up the new environment variables. In the agent chat: `Stop the app and start it again`
 
 **CHECKPOINT:** In the agent chat: `Commit all changes with the message 'set up supabase and env vars' and push to GitHub`
 
@@ -556,7 +565,7 @@ After this, restart the dev server so Next.js picks up the new environment varia
 
 ## Step 4: Build the API Route + AI Integration
 
-This is the heart of the app: the API route takes the form details, sends them to the
+This is the heart of the app: the messenger in the middle takes the form details, sends them to the
 AI with a carefully written prompt, and gets back structured copy. Here's the prompt
 we're building around -- notice it asks for **JSON** so the code can reliably split the
 subject, body, and LinkedIn message apart:
@@ -589,27 +598,26 @@ Now build it. In the agent chat:
 ```
 I need to add AI-powered email generation to this app. Do the following:
 
-1. Create a Next.js API route at app/api/generate/route.ts that:
-   - Accepts a POST request with JSON body containing:
-     prospect_name, company, role, offer, pain_point
-   - Calls the OpenRouter API (https://openrouter.ai/api/v1/chat/completions)
-     using the OPENROUTER_API_KEY environment variable
-   - Uses the model "anthropic/claude-sonnet-4-20250514"
-   - Sends this system prompt: "You are an expert B2B copywriter. Always
-     respond with valid JSON only, no markdown."
-   - Sends a user prompt that includes all five fields and asks for a cold
-     email (subject + body, under 150 words, conversational, one clear CTA)
-     and a LinkedIn message (under 300 characters, warm and specific)
-   - Requests the response in JSON format:
+1. Create the backend connection that receives the form data when someone clicks
+   Generate, sends it to OpenRouter (https://openrouter.ai/api/v1/chat/completions)
+   using the OPENROUTER_API_KEY environment variable, and returns the AI's response.
+   - The form sends: prospect_name, company, role, offer, pain_point
+   - Use the model "anthropic/claude-sonnet-4-20250514"
+   - System prompt: "You are an expert B2B copywriter. Always respond with valid
+     JSON only, no markdown."
+   - User prompt: include all five fields and ask for a cold email (subject + body,
+     under 150 words, conversational, one clear CTA) and a LinkedIn message
+     (under 300 characters, warm and specific)
+   - Request the response in JSON format:
      { "email_subject": "", "email_body": "", "linkedin_message": "" }
-   - Parses the JSON from the AI response and returns it
-   - Uses fetch, not axios. Includes error handling.
+   - Parse the JSON from the AI response and return it
+   - Include error handling
 
-2. Update app/page.tsx so that when the Generate button is clicked:
-   - POST the form data to /api/generate
-   - Show a loading state on the button while waiting ("Generating...")
-   - When the response comes back, store the result in state
-   - For now, just console.log the result -- we'll display it properly next
+2. Wire up the Generate button on the main page so that when clicked:
+   - It sends the form data to that backend connection
+   - Shows a loading state on the button while waiting ("Generating...")
+   - When the response comes back, store the result
+   - For now, just console.log the result — we'll display it properly next
 ```
 
 ### Test it
@@ -619,7 +627,7 @@ I need to add AI-powered email generation to this app. Do the following:
 3. Open browser DevTools (Cmd+Option+J on Mac, Ctrl+Shift+J on Windows)
 4. Check the console -- you should see a JSON object with `email_subject`, `email_body`, and `linkedin_message`
 
-If it works -- you just built an AI feature. That API route is the exact pattern behind every AI product: take input, send it to a model, get structured output back.
+If it works — you just built an AI feature. That pattern — take input, send it to a model, get structured output back — is behind every AI product.
 
 **CHECKPOINT:** In the agent chat: `Commit all changes with the message 'add AI generation via openrouter' and push to GitHub`
 
@@ -630,19 +638,19 @@ If it works -- you just built an AI feature. That API route is the exact pattern
 In the agent chat:
 
 ```
-Update app/page.tsx so that when the AI response comes back, instead of
+Update the main page so that when the AI response comes back, instead of
 console.log, display the results below the form:
 
 Show two cards side by side:
-1. "Cold Email" card -- show the subject line in bold, then the body below it.
+1. "Cold Email" card — show the subject line in bold, then the body below it.
    Include a "Copy" button that copies the full email to clipboard.
-2. "LinkedIn Message" card -- show the message. Include a "Copy" button.
+2. "LinkedIn Message" card — show the message. Include a "Copy" button.
 
 Below both cards, show two buttons:
-- "Regenerate" (calls the API again with the same inputs)
+- "Regenerate" (calls the AI again with the same inputs)
 - "Save to History" (we'll wire this up next)
 
-Use Tailwind CSS. Make the cards look clean with borders and padding.
+Make the cards look clean with borders and padding.
 ```
 
 **CHECKPOINT:** In the agent chat: `Commit all changes with the message 'display results with copy buttons' and push to GitHub`
@@ -654,16 +662,14 @@ Use Tailwind CSS. Make the cards look clean with borders and padding.
 In the agent chat:
 
 ```
-Update the "Save to History" button in app/page.tsx to:
+Update the "Save to History" button on the main page so that when clicked it saves
+everything to the "outreach" table in Supabase:
 
-1. When clicked, insert a row into the Supabase "outreach" table with all the
-   form inputs (prospect_name, company, role, offer, pain_point) AND the AI
-   outputs (email_subject, email_body, linkedin_message)
-2. Use the Supabase client from lib/supabase.ts
-3. Show a success message ("Saved!") that disappears after 2 seconds
-4. Disable the button after saving so they don't accidentally save twice
+- All form fields: prospect_name, company, role, offer, pain_point
+- All AI outputs: email_subject, email_body, linkedin_message
 
-Import the supabase client at the top of the file.
+Show "Saved!" for 2 seconds, then disable the button so they can't save twice.
+Use the Supabase connection you set up in Part D.
 ```
 
 ### Test it
@@ -703,20 +709,20 @@ You'll use the Reset Rule a hundred times after this cohort. It's the difference
 You built this for homework -- here's the prompt, so everyone's is working before we deploy. In the agent chat:
 
 ```
-Create a new page at app/history/page.tsx that:
+Create a new History page at /history that:
 
 1. On load, fetches all rows from the Supabase "outreach" table, ordered by
    created_at descending (newest first)
 2. Displays them in a clean table with columns: Prospect Name, Company,
    Date (formatted nicely)
-3. Each row is clickable -- when clicked, it expands to show the full email
+3. Each row is clickable — when clicked, it expands to show the full email
    and LinkedIn message below the row, with copy buttons
 4. Include a link back to the main page ("Generate New")
 
-Also update the main page (app/page.tsx) to include a link to /history
-("View History") in the top right corner.
+Also update the main page to include a link to /history ("View History")
+in the top right corner.
 
-Use Tailwind CSS. Keep it simple and clean.
+Keep it simple and clean.
 ```
 
 ### Test it
@@ -747,11 +753,11 @@ agent can do it for you with the Vercel CLI. In the agent chat:
 
 ```
 Deploy this project to Vercel using the Vercel CLI:
-1. If the Vercel CLI isn't installed, install it (npm install -g vercel).
-2. If I'm not logged in, run "vercel login" and walk me through it -- I'll approve
+1. If the Vercel CLI isn't installed, install it.
+2. If I'm not logged in, run "vercel login" and walk me through it — I'll approve
    the login in my browser.
 3. Link this project to a new Vercel project called "outreach-generator", accepting
-   the auto-detected Next.js settings.
+   whatever settings the CLI suggests.
 4. Add my three environment variables from .env.local to the Production environment:
    NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, and OPENROUTER_API_KEY.
 5. Connect my GitHub repo so future pushes auto-deploy (vercel git connect).
@@ -784,7 +790,7 @@ your live site automatically -- no manual deploys after this.
 If something doesn't work:
 
 - **App loads but AI doesn't work** -- the `OPENROUTER_API_KEY` env var probably didn't make it to Vercel. Ask the agent: `Check my Vercel production environment variables and add OPENROUTER_API_KEY from .env.local if it's missing, then redeploy.`
-- **App won't build** -- read the build error (the Vercel CLI prints it, or check the deployment log at vercel.com). It's usually a TypeScript error. Fix it in Cursor, commit, push, and Vercel redeploys automatically
+- **App won't build** — read the build error (the Vercel CLI prints it, or check the deployment log at vercel.com). Paste the error into Cursor and ask the agent to fix it, then commit, push, and Vercel redeploys automatically
 
 ---
 
